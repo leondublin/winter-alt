@@ -1,19 +1,27 @@
 input.onButtonPressed(Button.A, function () {
-    if (light2 >= 70) {
-        basic.showString("Lights Off")
-    } else {
-        basic.showString("Lights On")
+    while (true) {
+        if (input.lightLevel() >= 40) {
+            basic.showIcon(IconNames.No)
+        } else {
+            basic.showIcon(IconNames.Yes)
+        }
     }
 })
 input.onButtonPressed(Button.B, function () {
-    if (light2 < 70) {
-        basic.showString("Lights On")
-    } else {
-        basic.showString("Lights Off")
+    while (true) {
+        if (input.lightLevel() < 40) {
+            basic.showIcon(IconNames.No)
+        } else {
+            basic.showIcon(IconNames.No)
+        }
     }
 })
-let light2 = 0
+serial.redirectToUSB()
 basic.showString("Hi!")
 basic.showIcon(IconNames.Happy)
 basic.clearScreen()
 basic.showString("A or B?")
+basic.forever(function () {
+    serial.writeLine("" + (input.lightLevel()))
+    serial.writeLine("")
+})
